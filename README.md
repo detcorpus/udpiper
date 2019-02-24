@@ -9,14 +9,14 @@ Tiny UDPipe+Mystem-wrapper based on an official [example](https://github.com/ufa
 
 ## Usage
 
-    ```bash
-    $ udpiper --help
-    $ wget -O ru-ud23.udpipe "https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11234/1-2898/russian-syntagrus-ud-2.3-181115.udpipe?sequence=71&isAllowed=y"
-    $ udpiper -m ru-ud23.udpipe -i *.txt
-    ```
+```bash
+$ udpiper --help
+$ wget -O ru-ud23.udpipe "https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11234/1-2898/russian-syntagrus-ud-2.3-181115.udpipe?sequence=71&isAllowed=y"
+$ udpiper -m ru-ud23.udpipe -i *.txt
+```
 
-    ```python
-    import udpiper
-    pipe = UDPiper('ru-ud23.udpipe') # path to model file
-    conllu = pipe.process(text)
-    ```
+```python
+import udpiper
+pipe = UDPiper('ru-ud23.udpipe') # path to model file
+conllu = pipe.process(text)
+```
