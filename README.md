@@ -16,7 +16,7 @@ $ udpiper -m ru-ud23.udpipe -i *.txt
 ```
 
 ```python
-import udpiper
+from udpiper import UDPiper
 pipe = UDPiper('ru-ud23.udpipe') # path to model file
 conllu = pipe.process(text)
 ```
