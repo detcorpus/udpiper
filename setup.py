@@ -10,10 +10,7 @@ setup(
     install_requires=[
         "ufal.udpipe==1.2.0.1",
         "pymystem3==0.2.0",
-        "russian-tagsets==0.6"
-    ],
-    dependency_links=[
-        'https://github.com/theotheo/russian-tagsets/tarball/master#egg=russian-tagsets-0.6'
+        "packaging@https://github.com/theotheo/russian-tagsets"
     ],
     scripts=['bin/udpiper']
 )
