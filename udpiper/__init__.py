@@ -36,6 +36,9 @@ def tag_with_mystem(sent):
             if 'analysis' in w:
                 try:
                     w = w['analysis'][0] # TODO: а если больше 1?
+
+                    if len(w['analysis'] > 1):
+                        logging.warn(w)
                 except: 
                     logging.error(w) # TODO: что делать с неразобранным?
                     continue
@@ -68,7 +71,7 @@ class UDPiper:
         if not self.model:
             raise Exception("Cannot load UDPipe model from file '%s'" % path)
 
-    def tokenize(self, text):
+    def _tokenize(self, text):
         """Tokenize the text and return list of ufal.udpipe.Sentence-s."""
         tokenizer = self.model.newTokenizer(self.model.TOKENIZER_RANGES)
         if not tokenizer:
@@ -97,11 +100,11 @@ class UDPiper:
 
         return sentences
 
-    def tag(self, sentence):
+    def _tag(self, sentence):
         """Tag the given ufal.udpipe.Sentence (inplace)."""
         self.model.tag(sentence, self.model.DEFAULT)
 
-    def parse(self, sentence):
+    def _parse(self, sentence):
         """Parse the given ufal.udpipe.Sentence (inplace)."""
         self.model.parse(sentence, self.model.DEFAULT)
 
@@ -117,7 +120,7 @@ class UDPiper:
         return output
 
     def process(self, text, text_id='example', mystem=False):
-        sentences = self.tokenize(text)
+        sentences = self._tokenize(text)
 
         for s in sentences:
             sent_id = s.getSentId()
@@ -125,8 +128,15 @@ class UDPiper:
             if mystem:
                 tag_with_mystem(s)
             else:
-                self.tag(s)
-            self.parse(s)
+                self._tag(s)
+            self._parse(s)
 
-        conllu = self.write(sentences, "conllu")
+        conllu = self._write(sentences, "conllu")
         return conllu
+
+    def word_tokenize(self, text):
+            for s in self._tokenize(text):
+                return [t.form for t in s.words[1:]]
+
+    def sent_tokenize(self, text):
+        return [s.getText() for s in self._tokenize(text)]
