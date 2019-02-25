@@ -108,7 +108,7 @@ class UDPiper:
         """Parse the given ufal.udpipe.Sentence (inplace)."""
         self.model.parse(sentence, self.model.DEFAULT)
 
-    def write(self, sentences, out_format):
+    def _write(self, sentences, out_format):
         """Write given ufal.udpipe.Sentence-s in the required format (conllu|horizontal|vertical)."""
 
         output_format = udpipe.OutputFormat.newOutputFormat(out_format)
